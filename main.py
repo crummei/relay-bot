@@ -83,13 +83,13 @@ async def on_ready():
 @bot.command()
 @commands.has_permissions(administrator=True)
 async def add(ctx):
-    def check_channel(m):
+    def checkChannel(m):
         return m.author == ctx.author and m.channel == ctx.channel
 
     await ctx.send("Please mention the **source** channel (e.g. #general) or type channel ID:")
 
     try:
-        sourceMsg = await bot.wait_for("message", check=check_channel, timeout=60)
+        sourceMsg = await bot.wait_for("message", check=checkChannel, timeout=60)
         sourceChannel = None
 
         if sourceMsg.channel_mentions:
@@ -103,7 +103,7 @@ async def add(ctx):
 
         await ctx.send("Now please mention the **destination** channel or type channel ID:")
 
-        destMsg = await bot.wait_for("message", check=check_channel, timeout=60)
+        destMsg = await bot.wait_for("message", check=checkChannel, timeout=60)
         destChannel = None
 
         if destMsg.channel_mentions:
@@ -128,13 +128,13 @@ async def add(ctx):
 @bot.command()
 @commands.has_permissions(administrator=True)
 async def remove(ctx):
-    def check_channel(m):
+    def checkChannel(m):
         return m.author == ctx.author and m.channel == ctx.channel
 
     await ctx.send("Please mention the **source** channel you wish to modify (e.g. #general) or type channel ID:")
 
     try:
-        sourceMsg = await bot.wait_for("message", check=check_channel, timeout=60)
+        sourceMsg = await bot.wait_for("message", check=checkChannel, timeout=60)
         sourceChannel = None
 
         if sourceMsg.channel_mentions:
@@ -150,7 +150,7 @@ async def remove(ctx):
 
         await ctx.send("Type `all` to remove the entire source relay, or mention a **destination** channel to remove:")
 
-        destMsg = await bot.wait_for("message", check=check_channel, timeout=60)
+        destMsg = await bot.wait_for("message", check=checkChannel, timeout=60)
 
         if destMsg.content.lower() == "all":
             success = removeRelayEntry(sourceID)
